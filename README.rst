@@ -9,7 +9,7 @@ JSON Color
    :target: https://travis-ci.org/json-transformations/jsoncolor
    :alt: Latest Travis CI build status
 
-A JSON document color and highlighting tool
+A JSON text coloring and highlighting tool
 
 Usage
 -----

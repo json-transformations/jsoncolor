@@ -1,7 +1,9 @@
 import ast
+import json
 import re
 import sys
 from setuptools import setup, find_packages
+from setuptools.command.install import install
 from pip.req import parse_requirements
 
 # get __version__ from __init__.py
@@ -27,6 +29,18 @@ requirements_dev = parse_requirements('requirements-dev.txt', session=False)
 reqs_dev = [str(i.req) for i in requirements_dev]
 
 
+# post-installation command
+class PostInstallCommand(install):
+    """Post-Installation to create configuration file."""
+    def run(self):
+        from jsonconfig import Config
+        with Config('jsoncolor') as cfg:
+            with open('config.json', 'r') as f:
+                cfg.data = json.loads(f.read())
+            cfg.kwargs['dump']['indent'] = 4
+        install.run(self)
+
+
 setup(
     name="jsoncolor",
     version=version,
@@ -36,7 +50,7 @@ setup(
     author="Tim Phillips",
     author_email="phillipstr@gmail.com",
 
-    description="A JSON document color and highlighting tool",
+    description="A JSON text coloring and highlighting tool",
     long_description=readme,
 
     packages=find_packages(include=['jsoncolor']),
@@ -59,5 +73,7 @@ setup(
             'jsoncolor='
             'jsoncolor.cli:main']
     },
+    cmdclass={
+        'install': PostInstallCommand,
+    },
 )
-
