@@ -1,0 +1,28 @@
+{
+    "default":"default",
+
+    "styles":
+        {
+            "default":{
+                "Token":"darkgray",
+                "Keyword":"brown",
+                "Name_Tag":"darkgreen",
+                "String":"lightgray",
+                "Number":"fuchsia"
+            },
+            "solarized_dark":{
+                "Token":"#cb4b16",
+                "Keyword":"#859900",
+                "Name_Tag":"#268bd2",
+                "String":"#b58900",
+                "Number":"#2aa198"
+            },
+            "solarized_light":{
+                "Token":"#cb4b16",
+                "Keyword":"#859900",
+                "Name_Tag":"#268bd2",
+                "String":"#b58900",
+                "Number":"#2aa198"
+            }
+        }
+}
