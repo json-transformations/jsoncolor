@@ -3,14 +3,9 @@ JSON Content Coloring
 
 Functions used to color and highlight JSON content for better viewing on the
 command-line.
-
-Functions:
-    1.
-    2.
 """
 
 import json
-from functools import reduce
 
 import pygments
 import pygments.style
