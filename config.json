@@ -1,28 +1,23 @@
 {
-    "default":"default",
+    "default":"solarized_dark",
 
     "styles":
         {
-            "default":{
-                "Token":"darkgray",
-                "Keyword":"brown",
-                "Name_Tag":"darkgreen",
-                "String":"lightgray",
-                "Number":"fuchsia"
-            },
-            "solarized_dark":{
-                "Token":"#cb4b16",
-                "Keyword":"#859900",
-                "Name_Tag":"#268bd2",
-                "String":"#b58900",
-                "Number":"#2aa198"
-            },
-            "solarized_light":{
-                "Token":"#cb4b16",
-                "Keyword":"#859900",
-                "Name_Tag":"#268bd2",
-                "String":"#b58900",
-                "Number":"#2aa198"
+        "solarized_dark": {
+            "Token": "#8a8a8a",
+            "Keyword": "#af0000",
+            "Name_Tag": "#268bd2",
+            "String": "#af8700",
+            "Number": "#00afaf"
+        },
+        "solarized_light":{
+            "Token": "#4e4e4e",
+            "Keyword": "#af0000",
+            "Name_Tag": "#268bd2",
+            "String": "#d75f00",
+            "Number": "#00afaf"
             }
-        }
+        },
+
+    "color_code_source":"http://www.colorhexa.com/"
 }
