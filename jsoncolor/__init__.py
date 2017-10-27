@@ -1,4 +1,4 @@
-"""jsoncolor - A JSON document color and highlighting tool"""
-
+"""jsoncolor - A JSON text coloring and highlighting tool"""
+from . import core
 
 __version__ = '0.0'
