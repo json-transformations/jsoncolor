@@ -6,6 +6,7 @@ command-line.
 """
 
 import json
+from string import hexdigits
 
 import pygments
 import pygments.style
@@ -36,6 +37,25 @@ def get_color_style(all_colors=False):
 STYLE = get_color_style()
 
 
+def validate_style(style):
+    """
+    Validates to see if a given style has valid values.
+
+    Args:
+        * style (dict): color style dict with values as hexadecimal color
+            codes, as found at: http://www.colorhexa.com/
+
+    Returns:
+        * style (dict): values that are not valid will be deleted and a
+            truncated dict will be returned.  All valid values will remain.
+    """
+    valid = {}
+    for k, v in style.items():
+        if (v.startswith('#') and all([d in hexdigits for d in v[1:]])):
+            valid[k] = v
+    return valid
+
+
 def create_style_class(style):
     """
     Create a Style Class.
@@ -48,14 +68,15 @@ def create_style_class(style):
         * StyleClass with appropriate color set for pygments
             Terminal256Formatter
     """
+    style = validate_style(style)
 
     class StyleClass(pygments.style.Style):
         styles = {
-            pygments.token.Token: style['Token'],
-            pygments.token.Keyword: style['Keyword'],
-            pygments.token.Name.Tag: style['Name_Tag'],
-            pygments.token.String: style['String'],
-            pygments.token.Number: style['Number'],
+            pygments.token.Token: style.get('Token', '#8a8a8a'),
+            pygments.token.Keyword: style.get('Keyword', '#ffb0ff'),
+            pygments.token.Name.Tag: style.get('Name_Tag', '#2e8ee4'),
+            pygments.token.String: style.get('String', '#af8700'),
+            pygments.token.Number: style.get('Number', '#00afaf'),
         }
 
     return StyleClass
@@ -88,11 +109,11 @@ def highlighter(data, style=create_style_class(STYLE)):
 
     Returns:
         * Json-serialized content with proper color coding
-        * Json-serialized content without color coding if a NameError or
-            AttributeError from Terminal256Formatter is thrown.
+        * Json-serialized content without color coding if a ValueError
+            from Terminal256Formatter is thrown.
     """
     try:
         formatter = Terminal256Formatter(style=style)
-    except (NameError, AttributeError):
+    except (ValueError):
         return data
     return pygments.highlight(data, JsonLexer(), formatter)
