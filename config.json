@@ -5,8 +5,8 @@
         {
         "solarized_dark": {
             "Token": "#8a8a8a",
-            "Keyword": "#af0000",
-            "Name_Tag": "#268bd2",
+            "Keyword": "#ffb0ff",
+            "Name_Tag": "#2e8ee4",
             "String": "#af8700",
             "Number": "#00afaf"
         },
