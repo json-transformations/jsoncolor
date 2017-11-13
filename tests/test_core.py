@@ -1,10 +1,9 @@
 """jsoncolor.core tests"""
 
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
 import pytest
 import pygments.style
-from jsonconfig.core import Config
 
 from jsoncolor.core import get_color_style
 from jsoncolor.core import validate_style
@@ -12,39 +11,14 @@ from jsoncolor.core import create_style_class
 from jsoncolor.core import format_json
 from jsoncolor.core import highlighter
 
-
 ##############################################################################
 # CONSTANTS
 ##############################################################################
 
 DATA = {'a': 'b', 'c': 'd'}
 
-DEFAULT = {'default': 's1', 'styles': {'s1': 't1', 's2': 't2'}}
-
 STYLE_TEST = {'Token': '#8a8a8a', 'Keyword': '#af0000', 'Name_Tag': '#268bd2',
               'String': '#af8700', 'Number': '#00afaf'}
-
-
-##############################################################################
-# FIXTURES
-##############################################################################
-
-class ConfigMock:
-    """Mock class to return instead of jsonconfig.core.Config."""
-    data = DEFAULT
-
-
-@pytest.fixture()
-def cfg_mock(monkeypatch):
-    """Patches the context manager call `with jsonconfig.core.Config...`."""
-    def enter(param1):
-        return ConfigMock
-
-    def exit(param1, param2, param3, param4):
-        pass
-
-    monkeypatch.setattr(Config, '__enter__', enter)
-    monkeypatch.setattr(Config, '__exit__', exit)
 
 
 ##############################################################################
