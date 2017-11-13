@@ -75,7 +75,7 @@ def set_default(style):
 
 
 def create_style():
-    """Print how to create a new color style"""
+    """Print how to create a new color style."""
     with Config('jsoncolor', 'r') as cfg:
         path = cfg.filename
     click.echo('To create a new color style, edit the configuration file')
@@ -110,6 +110,7 @@ def main(ctx, **kwds):
 
     if kwds['create']:
         create_style()
+        sys.exit(0)
 
     data = load_json(ctx, kwds['jsonfile'])
     output(data, ctx, indent=2)
