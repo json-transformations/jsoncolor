@@ -75,5 +75,6 @@ setup(
     },
     cmdclass={
         'install': PostInstallCommand,
+        'develop': PostInstallCommand,
     },
 )
