@@ -10,9 +10,10 @@ from string import hexdigits
 
 import pygments
 import pygments.style
+import jsonconfig
 from pygments.formatters.terminal256 import Terminal256Formatter
 from pygments.lexers import JsonLexer
-from jsonconfig import Config
+#from jsonconfig import Config
 
 
 def get_color_style(all_colors=False):
@@ -26,7 +27,7 @@ def get_color_style(all_colors=False):
         default color scheme if all_colors=False
         dict of all preset colors if all_colors=True
     """
-    with Config('jsoncolor', 'r') as cfg:
+    with jsonconfig.Config('jsoncolor', 'r') as cfg:
         colors = cfg.data
     if not all_colors:
         return colors['styles'][colors['default']]
