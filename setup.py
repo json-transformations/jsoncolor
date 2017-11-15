@@ -33,11 +33,8 @@ reqs_dev = [str(i.req) for i in requirements_dev]
 class PostInstallCommand(install):
     """Post-Installation to create configuration file."""
     def run(self):
-        from jsonconfig import Config
-        with Config('jsoncolor') as cfg:
-            with open('config.json', 'r') as f:
-                cfg.data = json.loads(f.read())
-            cfg.kwargs['dump']['indent'] = 4
+        from jsoncolor.config import config_profile
+        config_profile()
         install.run(self)
 
 

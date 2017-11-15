@@ -2,7 +2,7 @@
 
 import pytest
 
-from jsonconfig.core import Config
+import jsonconfig
 
 ##############################################################################
 # CONSTANTS
@@ -16,7 +16,7 @@ DEFAULT = {'default': 's1', 'styles': {'s1': 't1', 's2': 't2'}}
 ##############################################################################
 
 class ConfigMock:
-    """Mock class to return instead of jsonconfig.core.Config."""
+    """Mock class to return instead of jsonconfig.Config."""
     data = DEFAULT
     filename = '/default/path'
     kwargs = {'dump': {'indent': 4}}
@@ -24,12 +24,12 @@ class ConfigMock:
 
 @pytest.fixture()
 def cfg_mock(monkeypatch):
-    """Patches the context manager call `with jsonconfig.core.Config...`."""
+    """Patches the context manager call `with jsonconfig.Config...`."""
     def enter(param1):
-        return ConfigMock
+        return ConfigMock()
 
     def exit(param1, param2, param3, param4):
         pass
 
-    monkeypatch.setattr(Config, '__enter__', enter)
-    monkeypatch.setattr(Config, '__exit__', exit)
+    monkeypatch.setattr(jsonconfig.Config, '__enter__', enter)
+    monkeypatch.setattr(jsonconfig.Config, '__exit__', exit)
