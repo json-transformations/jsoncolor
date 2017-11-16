@@ -89,7 +89,7 @@ def create_style():
 @option('-d', '--default', 'default', help='Set default color style')
 @option('-n', '--nocolor', is_flag=True, help='Disable syntax highlighting')
 @option('-s', '--styles', is_flag=True, help='Print all preset styles')
-@version_option(version='0.0', prog_name='JSON Color')
+@version_option(version='0.1', prog_name='JSON Color')
 @click.pass_context
 def main(ctx, **kwds):
     """JSON text coloring."""

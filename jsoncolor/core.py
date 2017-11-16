@@ -10,7 +10,6 @@ from string import hexdigits
 
 import pygments
 import pygments.style
-import jsonconfig
 from pygments.formatters.terminal256 import Terminal256Formatter
 from pygments.lexers import JsonLexer
 
