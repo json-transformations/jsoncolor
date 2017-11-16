@@ -9,26 +9,58 @@ JSON Color
    :target: https://travis-ci.org/json-transformations/jsoncolor
    :alt: Latest Travis CI build status
 
-A JSON text coloring and highlighting tool
-
-Usage
------
+A JSON content terminal coloring tool
 
 Installation
 ------------
+.. code-block:: console
 
-Requirements
-------------
+  $ pip install jsonflatten
 
-Compatibility
--------------
 
-License
--------
+Usage
+-----
+.. code-block:: console
+
+$ jsoncolor --help
+
+Usage: jsoncolor [OPTIONS] [JSONFILE]
+
+  JSON text coloring.
+
+Options:
+  -c, --create        Create a new color style
+  -d, --default TEXT  Set default color style
+  -n, --nocolor       Disable syntax highlighting
+  -s, --styles        Print all preset styles
+  --version           Show the version and exit.
+  --help              Show this message and exit.
+
+Examples
+--------
+.. code-block:: console
+
+  $ cat results.json
+  {
+    "string": "hello, github",
+    "number": 200,
+    "keyword": true
+  }
+
+  $ jsoncolor results.json
+.. figure:: docs/source/_static/solarized.png
+   :align: left
+
+
+Create Color Styles
+-------------------
+* **jsoncolor** defaults to **solarized**, but you can create your own style.
+* Modify the **jsoncolor** configuration file with hexadecimal color codes.
+* Configuration file is created with `jsonconfig <https://github.com/json-transformations/jsonconfig>`_
+* Configuration files `locations <https://github.com/json-transformations/jsonconfig#configuration-file-locations>`_
 
 Authors
 -------
-
 `jsoncolor` was written by `Tim Phillips <phillipstr@gmail.com>`_.
 
 Credits

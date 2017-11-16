@@ -1,4 +1,4 @@
-"""jsoncolor.config.py tests"""
+"""jsoncolor.config tests"""
 
 import pytest
 
