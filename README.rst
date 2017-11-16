@@ -22,19 +22,19 @@ Usage
 -----
 .. code-block:: console
 
-$ jsoncolor --help
+  $ jsoncolor --help
 
-Usage: jsoncolor [OPTIONS] [JSONFILE]
+    Usage: jsoncolor [OPTIONS] [JSONFILE]
 
-  JSON text coloring.
+    JSON text coloring.
 
-Options:
-  -c, --create        Create a new color style
-  -d, --default TEXT  Set default color style
-  -n, --nocolor       Disable syntax highlighting
-  -s, --styles        Print all preset styles
-  --version           Show the version and exit.
-  --help              Show this message and exit.
+    Options:
+      -c, --create        Create a new color style
+      -d, --default TEXT  Set default color style
+      -n, --nocolor       Disable syntax highlighting
+      -s, --styles        Print all preset styles
+      --version           Show the version and exit.
+      --help              Show this message and exit.
 
 Examples
 --------
