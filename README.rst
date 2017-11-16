@@ -15,7 +15,7 @@ Installation
 ------------
 .. code-block:: console
 
-  $ pip install jsonflatten
+  $ pip install jsoncolor
 
 
 Usage
@@ -62,7 +62,7 @@ Create Color Styles
 
 Authors
 -------
-`jsoncolor` was written by `Tim Phillips <phillipstr@gmail.com>`_.
+JSON Color was written by `Tim Phillips <phillipstr@gmail.com>`_.
 
 Credits
 -------
