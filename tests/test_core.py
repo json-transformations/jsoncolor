@@ -5,7 +5,6 @@ from unittest.mock import patch
 import pytest
 import pygments.style
 
-from jsoncolor.core import get_color_style
 from jsoncolor.core import validate_style
 from jsoncolor.core import create_style_class
 from jsoncolor.core import format_json
@@ -19,30 +18,6 @@ DATA = {'a': 'b', 'c': 'd'}
 
 STYLE_TEST = {'Token': '#8a8a8a', 'Keyword': '#af0000', 'Name_Tag': '#268bd2',
               'String': '#af8700', 'Number': '#00afaf'}
-
-
-##############################################################################
-# TESTS: get_color_style()
-##############################################################################
-
-def test_get_color_style_all_colors_false(cfg_mock):
-    """
-    GIVEN an existing jsoncolor config file
-    WHEN the default color style is retrieved from the config file
-    THEN assert the default style is returned
-    """
-    style = get_color_style(all_colors=False)
-    assert style == 't1'
-
-
-def test_get_color_style_all_colors_true(cfg_mock):
-    """
-    GIVEN an existing jsoncolor config file
-    WHEN all preset color styles are retrieved from the config file
-    THEN assert all styles are properly returned
-    """
-    styles = get_color_style(all_colors=True)
-    assert styles == {'s1': 't1', 's2': 't2'}
 
 
 ##############################################################################

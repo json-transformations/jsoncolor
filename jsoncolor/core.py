@@ -13,26 +13,8 @@ import pygments.style
 import jsonconfig
 from pygments.formatters.terminal256 import Terminal256Formatter
 from pygments.lexers import JsonLexer
-#from jsonconfig import Config
 
-
-def get_color_style(all_colors=False):
-    """
-    Gets color style from jsoncolor config file.
-
-    Args:
-        all_colors (boolean): return singleton value of all values
-
-    Returns:
-        default color scheme if all_colors=False
-        dict of all preset colors if all_colors=True
-    """
-    with jsonconfig.Config('jsoncolor', 'r') as cfg:
-        colors = cfg.data
-    if not all_colors:
-        return colors['styles'][colors['default']]
-    else:
-        return colors['styles']
+from jsoncolor.config import get_color_style
 
 
 STYLE = get_color_style()
