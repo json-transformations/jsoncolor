@@ -35,7 +35,7 @@ def validate_style(style):
     return valid
 
 
-def create_style_class(style=get_color_style()):
+def create_style_class(style=None):
     """
     Create a Style Class.
 
@@ -47,6 +47,8 @@ def create_style_class(style=get_color_style()):
         StyleClass with appropriate color set for pygments
             Terminal256Formatter
     """
+    if style is None:
+        style = get_color_style()
     style = validate_style(style)
 
     class StyleClass(pygments.style.Style):

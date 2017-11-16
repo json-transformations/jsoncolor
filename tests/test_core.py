@@ -51,13 +51,27 @@ def test_validate_style_give_bad_style():
 # TESTS: create_style_class()
 ##############################################################################
 
-def test_create_style_class():
+@patch('jsoncolor.core.get_color_style')
+def test_create_style_class(style_mock):
     """
     GIVEN a color style as a dict with all required key-value pairs
     WHEN creating a pygments.style.Style class with the given style
     THEN assert the class is properly created
     """
     style = create_style_class(STYLE_TEST)
+    assert hasattr(style, 'styles')
+    assert style.__class__ == pygments.style.StyleMeta
+
+
+@patch('jsoncolor.core.get_color_style')
+def test_create_styleNone_class(style_mock):
+    """
+    GIVEN a call to create_style_class with no given style class
+    WHEN creating a pygments.style.Style class with the given style
+    THEN assert the class is properly created
+    """
+    style_mock.return_value = STYLE_TEST
+    style = create_style_class()
     assert hasattr(style, 'styles')
     assert style.__class__ == pygments.style.StyleMeta
 
@@ -96,7 +110,7 @@ def test_format_json_defaults(dumps_mock, comp, ind, sep):
 def test_highlighter(json_mock, highl_mock, term256_mock):
     """
     GIVEN json content to highlight
-    WHEN highligher() is called with the json and color-style
+    WHEN highligher() is called with json data and a color-style
     THEN assert the appropriate pygments classes/functions are used
     """
     highlighter(DATA, STYLE_TEST)
@@ -115,3 +129,25 @@ def test_higlighter_exception():
     """
     h = highlighter(DATA, STYLE_TEST)
     assert h == DATA
+
+
+@patch('jsoncolor.core.Terminal256Formatter')
+@patch('pygments.highlight')
+@patch('jsoncolor.core.JsonLexer')
+@patch('jsoncolor.core.create_style_class')
+@patch('jsoncolor.core.get_color_style')
+def test_highlighter_styleNone(style_mock, create_mock, json_mock,
+                               highl_mock, term256_mock):
+    """
+    GIVEN json content to highlight
+    WHEN highligher() is called with json data and style=None
+    THEN assert the style is retrieved or created and
+        appropriate pygments classes/functions are used
+    """
+    style_mock.return_value = STYLE_TEST
+    highlighter(DATA)
+    style_mock.assert_called_once()
+    create_mock.assert_called_once_with(STYLE_TEST)
+    term256_mock.assert_called_once()
+    json_mock.assert_called_once()
+    highl_mock.assert_called_once()
