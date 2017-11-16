@@ -56,7 +56,7 @@ Examples
 Create Color Styles
 -------------------
 * **jsoncolor** defaults to **solarized**, but you can create your own style.
-* Modify the **jsoncolor** configuration file with hexadecimal color codes.
+* Modify the **jsoncolor** configuration file with hexadecimal color `codes <http://www.colorhexa.com/>`_.
 * Configuration file is created with `jsonconfig <https://github.com/json-transformations/jsonconfig>`_
 * Configuration files `locations <https://github.com/json-transformations/jsonconfig#configuration-file-locations>`_
 
