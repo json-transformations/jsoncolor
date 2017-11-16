@@ -16,9 +16,6 @@ from pygments.lexers import JsonLexer
 from jsoncolor.config import get_color_style
 
 
-STYLE = get_color_style()
-
-
 def validate_style(style):
     """
     Validates to see if a given style has valid values.
@@ -38,7 +35,7 @@ def validate_style(style):
     return valid
 
 
-def create_style_class(style):
+def create_style_class(style=get_color_style()):
     """
     Create a Style Class.
 
@@ -80,7 +77,7 @@ def format_json(data, compact=False, indent=2):
     return json.dumps(data, indent=indent, separators=separators)
 
 
-def highlighter(data, style=create_style_class(STYLE)):
+def highlighter(data, style=None):
     """
     JSON Syntax Highlighter.
 
@@ -94,6 +91,8 @@ def highlighter(data, style=create_style_class(STYLE)):
         Json-serialized content without color coding if a ValueError
             from Terminal256Formatter is thrown.
     """
+    if style is None:
+        style = create_style_class(get_color_style())
     try:
         formatter = Terminal256Formatter(style=style)
     except (ValueError):
