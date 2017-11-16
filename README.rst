@@ -48,7 +48,8 @@ Examples
   }
 
   $ jsoncolor results.json
-.. figure:: docs/source/_static/solarized.png
+
+.. figure:: docs/_static/solarized.jpg
    :align: left
 
 
