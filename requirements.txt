@@ -1,4 +1,0 @@
-jsoncut
-jsonconfig-tool
-click>=6.0
-pygments
