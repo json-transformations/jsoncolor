@@ -114,9 +114,9 @@ def test_highlighter(json_mock, highl_mock, term256_mock):
     THEN assert the appropriate pygments classes/functions are used
     """
     highlighter(DATA, STYLE_TEST)
-    highl_mock.assert_called_once()
-    json_mock.assert_called_once()
-    term256_mock.assert_called_once()
+    assert term256_mock.call_count == 1
+    assert json_mock.call_count == 1
+    assert highl_mock.call_count == 1
 
 
 def test_higlighter_exception():
@@ -146,8 +146,8 @@ def test_highlighter_styleNone(style_mock, create_mock, json_mock,
     """
     style_mock.return_value = STYLE_TEST
     highlighter(DATA)
-    style_mock.assert_called_once()
+    assert style_mock.call_count == 1
     create_mock.assert_called_once_with(STYLE_TEST)
-    term256_mock.assert_called_once()
-    json_mock.assert_called_once()
-    highl_mock.assert_called_once()
+    assert term256_mock.call_count == 1
+    assert json_mock.call_count == 1
+    assert highl_mock.call_count == 1

@@ -75,8 +75,8 @@ def test_main_jsonfile(lj_mk, o_mk):
     """
     runner = CliRunner()
     result = runner.invoke(main, ['json_file'])
-    lj_mk.assert_called_once()
-    o_mk.assert_called_once()
+    assert lj_mk.call_count == 1
+    assert o_mk.call_count == 1
 
 
 @patch('jsoncolor.cli.sample_styles')
@@ -88,7 +88,7 @@ def test_main_stylesSet(style_mock):
     """
     runner = CliRunner()
     result = runner.invoke(main, ['-s'])
-    style_mock.assert_called_once()
+    assert style_mock.call_count == 1
 
 
 @patch('jsoncolor.cli.output')
@@ -103,8 +103,8 @@ def test_main_setDefault(def_mk, lj_mk, o_mk):
     runner = CliRunner()
     result = runner.invoke(main, ['-d', 'solarized'])
     def_mk.assert_called_once_with('solarized')
-    lj_mk.assert_called_once()
-    o_mk.assert_called_once()
+    assert lj_mk.call_count == 1
+    assert o_mk.call_count == 1
 
 
 @patch('jsoncolor.cli.create_style')
@@ -116,7 +116,7 @@ def test_main_create(create_mk):
     """
     runner = CliRunner()
     result = runner.invoke(main, ['-c'])
-    create_mk.assert_called_once()
+    assert create_mk.call_count == 1
 
 
 ##############################################################################
