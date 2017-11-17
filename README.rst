@@ -2,12 +2,13 @@ JSON Color
 ==========
 
 .. image:: https://img.shields.io/pypi/v/jsoncolor.svg
-    :target: https://pypi.python.org/pypi/jsoncolor
-    :alt: Latest PyPI version
+   :target: https://pypi.python.org/pypi/jsoncolor
 
 .. image:: https://travis-ci.org/json-transformations/jsoncolor.png
    :target: https://travis-ci.org/json-transformations/jsoncolor
-   :alt: Latest Travis CI build status
+
+.. image:: https://coveralls.io/repos/github/json-transformations/jsoncolor/badge.svg?branch=master
+   :target: https://coveralls.io/github/json-transformations/jsoncolor?branch=master
 
 A JSON content terminal coloring tool
 
@@ -16,6 +17,8 @@ Installation
 .. code-block:: console
 
   $ pip install jsoncolor
+
+* JSON Color is only compatible with **Python 3.4+** at the moment.
 
 
 Usage
