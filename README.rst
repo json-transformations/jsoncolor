@@ -10,6 +10,7 @@ JSON Color
 .. image:: https://coveralls.io/repos/github/json-transformations/jsoncolor/badge.svg?branch=master
    :target: https://coveralls.io/github/json-transformations/jsoncolor?branch=master
 
+
 A JSON content terminal coloring tool
 
 Installation
