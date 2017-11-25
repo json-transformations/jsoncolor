@@ -4,6 +4,7 @@ import re
 import sys
 from setuptools import setup, find_packages
 from setuptools.command.install import install
+from setuptools.command.develop import develop
 
 
 # get __version__ from __init__.py
@@ -13,13 +14,22 @@ with open('jsoncolor/__init__.py', 'rb') as f:
         f.read().decode('utf-8')).group(1)))
 
 
-# post-installation command
+# post-installation command for INSTALL mode
 class PostInstallCommand(install):
     """Post-Installation to create configuration file."""
     def run(self):
         from jsoncolor.config import config_profile
         config_profile()
         install.run(self)
+
+
+# post-installation command for DEVELOP mode
+class PostDevelopCommand(develop):
+    """Post-Installation to create configuration file."""
+    def run(self):
+        from jsoncolor.config import config_profile
+        config_profile()
+        develop.run(self)
 
 
 setup(
@@ -67,6 +77,6 @@ setup(
     },
     cmdclass={
         'install': PostInstallCommand,
-        'develop': PostInstallCommand,
+        'develop': PostDevelopCommand,
     },
 )
