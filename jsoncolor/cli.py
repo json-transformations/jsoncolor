@@ -8,8 +8,8 @@ from click import argument
 from click import option
 from click import version_option
 
-from jsonconfig.core import Config
-from jsoncut.cli import load_json
+from jsoncore.cli import jsonfile
+from jsonconfig import Config
 
 from jsoncolor.core import create_style_class
 from jsoncolor.core import format_json
@@ -84,15 +84,16 @@ def create_style():
 
 
 @click.command()
-@argument('jsonfile', type=click.Path(readable=True), required=False)
 @option('-c', '--create', is_flag=True, help='Create a new color style')
 @option('-d', '--default', 'default', help='Set default color style')
 @option('-n', '--nocolor', is_flag=True, help='Disable syntax highlighting')
 @option('-s', '--styles', is_flag=True, help='Print all preset styles')
 @version_option(version='0.1', prog_name='JSON Color')
+@jsonfile
 @click.pass_context
 def main(ctx, **kwds):
     """JSON text coloring."""
+    print(kwds)
     ctx.color = False if kwds['nocolor'] else True
 
     if not kwds['jsonfile'] and not (kwds['styles'] or kwds['default']):
@@ -112,5 +113,5 @@ def main(ctx, **kwds):
         create_style()
         sys.exit(0)
 
-    data = load_json(ctx, kwds['jsonfile'])
-    output(data, ctx, indent=2)
+    output(kwds['jsonfile'], ctx, indent=2)
+
