@@ -39,8 +39,11 @@ def test_create_style(cfg_mock, capsys):
 # TESTS: main()
 ##############################################################################
 
-@pytest.mark.skipif(float(jsoncore.__version__) <= 0.5,
+minversion = pytest.mark.skipif(jsoncore.__version__ < '0.6.1',
                     reason='not compatible with jsoncore version <= 0.5')
+
+
+@minversion
 def test_main_no_jsonfile(monkeypatch):
     """
     GIVEN a call to jsoncolor
@@ -48,16 +51,13 @@ def test_main_no_jsonfile(monkeypatch):
     THEN assert the usage information is properly printed and SystemExit
         is raised
     """
-    ctx = Context(main, obj=ClickConfig())
-    ctx.command.name = 'jsoncolor'
-
     monkeypatch.setattr(click._termui_impl, 'isatty', lambda x: True)
 
     runner = CliRunner()
 
     result = runner.invoke(main)
     expected_output = ('Usage: jsoncolor [OPTIONS] [JSONFILE]\n'
-                       'Try `jsoncolor --help` for more information.\n')
+                       'Try `jsoncolor --help\' for more information.\n')
 
     assert result.output == expected_output
 
@@ -74,8 +74,7 @@ def test_main_jsonfile(o_mk):
     assert o_mk.call_count == 1
 
 
-@pytest.mark.skipif(float(jsoncore.__version__) <= 0.5,
-                    reason='not compatible with jsoncore version <= 0.5')
+@minversion
 @patch('jsoncolor.cli.sample_styles')
 def test_main_stylesSet(style_mock):
     """
@@ -88,8 +87,7 @@ def test_main_stylesSet(style_mock):
     assert style_mock.call_count == 1
 
 
-@pytest.mark.skipif(float(jsoncore.__version__) <= 0.5,
-                    reason='not compatible with jsoncore version <= 0.5')
+@minversion
 @patch('jsoncolor.cli.output')
 @patch('jsoncolor.cli.set_default')
 def test_main_setDefault(def_mk, o_mk):
@@ -104,8 +102,7 @@ def test_main_setDefault(def_mk, o_mk):
     assert o_mk.call_count == 1
 
 
-@pytest.mark.skipif(float(jsoncore.__version__) <= 0.5,
-                    reason='not compatible with jsoncore version <= 0.5')
+@minversion
 @patch('jsoncolor.cli.create_style')
 def test_main_create(create_mk):
     """

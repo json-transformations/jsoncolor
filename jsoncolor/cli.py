@@ -8,7 +8,7 @@ from click import argument
 from click import option
 from click import version_option
 
-from jsoncore.cli import jsonfile
+from jsoncore.cli import optional_jsonfile
 from jsonconfig import Config
 
 from jsoncolor.core import create_style_class
@@ -83,24 +83,26 @@ def create_style():
     click.echo('\n' + path + '\n')
 
 
-@click.command()
+@click.command(name='jsoncolor')
 @option('-c', '--create', is_flag=True, help='Create a new color style')
 @option('-d', '--default', 'default', help='Set default color style')
 @option('-n', '--nocolor', is_flag=True, help='Disable syntax highlighting')
 @option('-s', '--styles', is_flag=True, help='Print all preset styles')
 @version_option(version='0.1', prog_name='JSON Color')
-@jsonfile
+@optional_jsonfile
 @click.pass_context
 def main(ctx, **kwds):
     """JSON text coloring."""
-    print(kwds)
+    #print(kwds)
     ctx.color = False if kwds['nocolor'] else True
 
+    """
     if not kwds['jsonfile'] and not (kwds['styles'] or kwds['default']):
         if click._termui_impl.isatty(sys.stdin):
             click.echo(ctx.get_usage())
             click.echo('Try `jsoncolor --help` for more information.')
             sys.exit(0)
+    """
 
     if kwds['styles']:
         sample_styles(ctx)
@@ -114,4 +116,3 @@ def main(ctx, **kwds):
         sys.exit(0)
 
     output(kwds['jsonfile'], ctx, indent=2)
-
