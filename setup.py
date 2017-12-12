@@ -56,7 +56,7 @@ setup(
     ],
 
     install_requires=[
-        'jsoncut',
+        'jsoncore>=0.6.1',
         'jsonconfig-tool',
         'click>=6.0',
         'pygments',
