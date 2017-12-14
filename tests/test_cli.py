@@ -2,6 +2,7 @@
 
 from unittest.mock import patch, call
 
+import os
 import pytest
 
 import jsoncore
@@ -43,6 +44,11 @@ def test_create_style(cfg_mock, capsys):
 minversion = pytest.mark.skipif(jsoncore.__version__ < '0.6.8',
                     reason='not compatible with jsoncore version <= 0.6.8')
 
+# skip this test if on travs-ci
+travis = pytest.mark.skipif("TRAVIS" in os.environ and
+                    os.environ["TRAVIS"] == "true",
+                    reason='skipping test if on travis-ci')
+
 
 @minversion
 def test_main_noArgs(monkeypatch):
@@ -62,12 +68,13 @@ def test_main_noArgs(monkeypatch):
     assert result.output == expected_output
 
 
+@travis
 @patch('jsoncolor.cli.output')
 def test_main_jsonfile(o_mk):
     """
     GIVEN a call to jsoncolor
     WHEN a json file is given
-    THEN assert load_json() and output() are called
+    THEN assert output() is called
     """
     runner = CliRunner()
     result = runner.invoke(main, ['./data/test.json'])
