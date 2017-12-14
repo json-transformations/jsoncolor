@@ -7,14 +7,15 @@ import jsonconfig
 CONFIG = {
     "default": "solarized",
 
-    "styles":
-        {"solarized": {
-            "Token": "#8a8a8a",
-            "Keyword": "#ffb0ff",
+    "styles": {
+        "solarized": {
+            "Token":    "#8a8a8a",
+            "Keyword":  "#ffb0ff",
             "Name_Tag": "#2e8ee4",
-            "String": "#af8700",
-            "Number": "#00afaf"
-        }, },
+            "String":   "#af8700",
+            "Number":   "#00afaf",
+            },
+        },
     "color_code_source": "http://www.colorhexa.com/"
 }
 
