@@ -1,5 +1,5 @@
 """
-JSON Content Coloring
+JSON Text Coloring
 
 Functions used to color and highlight JSON content for better viewing on the
 command-line.
@@ -13,6 +13,7 @@ import pygments.style
 from pygments.formatters.terminal256 import Terminal256Formatter
 from pygments.lexers import JsonLexer
 
+from jsoncolor.config import CONFIG
 from jsoncolor.config import get_color_style
 
 
@@ -53,11 +54,16 @@ def create_style_class(style=None):
 
     class StyleClass(pygments.style.Style):
         styles = {
-            pygments.token.Token: style.get('Token', '#8a8a8a'),
-            pygments.token.Keyword: style.get('Keyword', '#ffb0ff'),
-            pygments.token.Name.Tag: style.get('Name_Tag', '#2e8ee4'),
-            pygments.token.String: style.get('String', '#af8700'),
-            pygments.token.Number: style.get('Number', '#00afaf'),
+            pygments.token.Token: style.get('Token',
+                CONFIG['styles']['solarized']['Token']),
+            pygments.token.Keyword: style.get('Keyword',
+                CONFIG['styles']['solarized']['Keyword']),
+            pygments.token.Name.Tag: style.get('Name_Tag',
+                CONFIG['styles']['solarized']['Name_Tag']),
+            pygments.token.String: style.get('String',
+                CONFIG['styles']['solarized']['String']),
+            pygments.token.Number: style.get('Number',
+                CONFIG['styles']['solarized']['Number']),
         }
 
     return StyleClass
