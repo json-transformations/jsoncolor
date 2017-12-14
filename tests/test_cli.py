@@ -41,7 +41,7 @@ def test_create_style(cfg_mock, capsys):
 
 # skip this test if jsoncore is not the correct version
 minversion = pytest.mark.skipif(jsoncore.__version__ < '0.6.8',
-                    reason='not compatible with jsoncore version <= 0.5')
+                    reason='not compatible with jsoncore version <= 0.6.8')
 
 
 @minversion
