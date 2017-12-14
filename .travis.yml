@@ -6,6 +6,8 @@ python:
 env:
   global:
     - PYTHONPATH="/home/travis/build/json-transformations/jsoncolor"
+before_install:
+  - export PATH=$(echo $PATH | tr ':' "\n" | sed '/\/opt\/python/d' | tr "\n" ":" | sed "s|::|:|g")
 install: "pip install pytest-cov pytest-pep8 coveralls"
 script: py.test --cov=jsoncolor --pep8
 after_success:
