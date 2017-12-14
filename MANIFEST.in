@@ -2,5 +2,6 @@ include LICENSE
 include CHANGES.rst
 include requirements.txt
 include requirements-dev.txt
+include tests/data/test.json
 
 recursive-include tests *.py
