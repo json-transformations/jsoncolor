@@ -93,16 +93,11 @@ def create_style():
 @click.pass_context
 def main(ctx, **kwds):
     """JSON text coloring."""
-    #print(kwds)
-    ctx.color = False if kwds['nocolor'] else True
+    if not any(kwds.values()):
+        click.echo('Try `jsoncolor --help` for usage information.')
+        sys.exit(0)
 
-    """
-    if not kwds['jsonfile'] and not (kwds['styles'] or kwds['default']):
-        if click._termui_impl.isatty(sys.stdin):
-            click.echo(ctx.get_usage())
-            click.echo('Try `jsoncolor --help` for more information.')
-            sys.exit(0)
-    """
+    ctx.color = False if kwds['nocolor'] else True
 
     if kwds['styles']:
         sample_styles(ctx)

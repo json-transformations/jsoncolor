@@ -39,15 +39,16 @@ def test_create_style(cfg_mock, capsys):
 # TESTS: main()
 ##############################################################################
 
-minversion = pytest.mark.skipif(jsoncore.__version__ < '0.6.1',
+# skip this test if jsoncore is not the correct version
+minversion = pytest.mark.skipif(jsoncore.__version__ < '0.6.8',
                     reason='not compatible with jsoncore version <= 0.5')
 
 
 @minversion
-def test_main_no_jsonfile(monkeypatch):
+def test_main_noArgs(monkeypatch):
     """
     GIVEN a call to jsoncolor
-    WHEN no json file is given
+    WHEN no commandline args are given
     THEN assert the usage information is properly printed and SystemExit
         is raised
     """
@@ -56,8 +57,7 @@ def test_main_no_jsonfile(monkeypatch):
     runner = CliRunner()
 
     result = runner.invoke(main)
-    expected_output = ('Usage: jsoncolor [OPTIONS] [JSONFILE]\n'
-                       'Try `jsoncolor --help\' for more information.\n')
+    expected_output = ('Try `jsoncolor --help` for usage information.\n')
 
     assert result.output == expected_output
 
