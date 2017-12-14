@@ -56,7 +56,7 @@ setup(
     ],
 
     install_requires=[
-        'jsoncore>=0.6.1',
+        'jsoncore>=0.6.8',
         'jsonconfig-tool',
         'click>=6.0',
         'pygments',
