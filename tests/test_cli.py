@@ -4,6 +4,7 @@ from unittest.mock import patch, call
 
 import pytest
 
+import jsoncore
 import click._termui_impl
 from click import Context
 from click.testing import CliRunner
@@ -15,12 +16,6 @@ from jsoncolor.cli import output
 from jsoncolor.cli import sample_styles
 from jsoncolor.cli import set_default
 from jsoncolor.cli import SAMPLE
-
-
-class ClickConfig:
-    """Used to pass ctx for click applications."""
-    def __init__(self):
-        self.color = True
 
 
 ##############################################################################
@@ -44,41 +39,42 @@ def test_create_style(cfg_mock, capsys):
 # TESTS: main()
 ##############################################################################
 
-def test_main_no_jsonfile(monkeypatch):
+# skip this test if jsoncore is not the correct version
+minversion = pytest.mark.skipif(jsoncore.__version__ < '0.6.8',
+                    reason='not compatible with jsoncore version <= 0.5')
+
+
+@minversion
+def test_main_noArgs(monkeypatch):
     """
     GIVEN a call to jsoncolor
-    WHEN no json file is given
+    WHEN no commandline args are given
     THEN assert the usage information is properly printed and SystemExit
         is raised
     """
-    ctx = Context(main, obj=ClickConfig())
-    ctx.command.name = 'jsoncolor'
-
     monkeypatch.setattr(click._termui_impl, 'isatty', lambda x: True)
 
     runner = CliRunner()
 
     result = runner.invoke(main)
-    expected_output = ('Usage: jsoncolor [OPTIONS] [JSONFILE]\n'
-                       'Try `jsoncolor --help` for more information.\n')
+    expected_output = ('Try `jsoncolor --help` for usage information.\n')
 
     assert result.output == expected_output
 
 
 @patch('jsoncolor.cli.output')
-@patch('jsoncolor.cli.load_json')
-def test_main_jsonfile(lj_mk, o_mk):
+def test_main_jsonfile(o_mk):
     """
     GIVEN a call to jsoncolor
     WHEN a json file is given
     THEN assert load_json() and output() are called
     """
     runner = CliRunner()
-    result = runner.invoke(main, ['json_file'])
-    assert lj_mk.call_count == 1
+    result = runner.invoke(main, ['./data/test.json'])
     assert o_mk.call_count == 1
 
 
+@minversion
 @patch('jsoncolor.cli.sample_styles')
 def test_main_stylesSet(style_mock):
     """
@@ -91,10 +87,10 @@ def test_main_stylesSet(style_mock):
     assert style_mock.call_count == 1
 
 
+@minversion
 @patch('jsoncolor.cli.output')
-@patch('jsoncolor.cli.load_json')
 @patch('jsoncolor.cli.set_default')
-def test_main_setDefault(def_mk, lj_mk, o_mk):
+def test_main_setDefault(def_mk, o_mk):
     """
     GIVEN a call to jsoncolor
     WHEN the -d option is used
@@ -103,10 +99,10 @@ def test_main_setDefault(def_mk, lj_mk, o_mk):
     runner = CliRunner()
     result = runner.invoke(main, ['-d', 'solarized'])
     def_mk.assert_called_once_with('solarized')
-    assert lj_mk.call_count == 1
     assert o_mk.call_count == 1
 
 
+@minversion
 @patch('jsoncolor.cli.create_style')
 def test_main_create(create_mk):
     """
@@ -124,11 +120,10 @@ def test_main_create(create_mk):
 ##############################################################################
 
 @pytest.fixture()
-def out_fix(patch_tty=True):
-    """Sset up args for jsoncolor.cli.output() calls."""
+def out_fix(ctx_mock, patch_tty=True):
+    """Set up args for jsoncolor.cli.output() calls."""
     data = {'k1': 'v1', 'k2': 'v2'}
-    ctx = ClickConfig()
-    return data, ctx
+    return data, ctx_mock
 
 
 @pytest.fixture()
@@ -220,18 +215,17 @@ def test_output_expectedArgs_styleNone_ttyFalse_indentNone(e_mk, f_mk,
 
 @patch('jsoncolor.cli.output')
 @patch('jsoncolor.cli.get_color_style')
-def test_sample_styles(style_mock, output_mock):
+def test_sample_styles(style_mock, output_mock, ctx_mock):
     """
     GIVEN a configuration file with multiple styles defined
     WHEN the user calls the cli with the -s option
     THEN assert the output is called with the listed styles
     """
-    ctx = ClickConfig()
     style_mock.return_value = {'s1': 't1'}
-    sample_styles(ctx)
+    sample_styles(ctx_mock)
     assert SAMPLE['Style'] == 's1'
     style_mock.assert_called_once_with(all_colors=True)
-    output_mock.assert_called_once_with(SAMPLE, ctx, indent=2, style='t1')
+    output_mock.assert_called_once_with(SAMPLE, ctx_mock, indent=2, style='t1')
 
 
 ##############################################################################

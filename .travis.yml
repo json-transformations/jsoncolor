@@ -6,7 +6,7 @@ python:
 env:
   global:
     - PYTHONPATH="/home/travis/build/json-transformations/jsoncolor"
-install: "pip install jsoncut jsonconfig-tool pytest-cov pytest-pep8 coveralls"
+install: "pip install pygments click>=6.0 jsoncore>=0.6.8 jsonconfig-tool pytest-cov pytest-pep8 coveralls"
 script: py.test --cov=jsoncolor --pep8
 after_success:
 - coveralls
