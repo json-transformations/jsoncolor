@@ -10,9 +10,9 @@ CONFIG = {
     "styles": {
         "solarized": {
             "Token": "#8a8a8a",
-            "Keyword": "#ffb0ff",
+            "Keyword": "#af8700",
             "Name_Tag": "#2e8ee4",
-            "String": "#af8700",
+            "String": "#00afaf",
             "Number": "#00afaf",
         },
     },
