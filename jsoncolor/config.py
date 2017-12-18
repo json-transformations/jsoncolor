@@ -10,10 +10,10 @@ CONFIG = {
     "styles": {
         "solarized": {
             "Token": "#8a8a8a",
-            "Keyword": "#af8700",
-            "Name_Tag": "#2e8ee4",
+            "Keyword": "#d75f00",
+            "Name_Tag": "#0087ff",
             "String": "#00afaf",
-            "Number": "#00afaf",
+            "Number": "#af005f",
         },
     },
     "color_code_source": "http://www.colorhexa.com/"
